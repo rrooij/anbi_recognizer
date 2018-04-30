@@ -52,10 +52,6 @@ def valid_alias(alias):
         return True
     return False
 
-def string_found(string1, string2):
-   if re.search(r"\b" + re.escape(string1) + r"\b", string2):
-      return True
-   return False
 
 def find_anbis(csv_file):
     names = fetch_anbi_list()
@@ -67,9 +63,9 @@ def find_anbis(csv_file):
                 found.append({'naam': betaling['verzender'], 'bedrag': betaling['euros']})
             elif anbi['naam'] in betaling['verzender']:
                 found.append({'naam': betaling['verzender'], 'bedrag': betaling['euros']})
-            elif valid_alias(anbi['alias']) and string_found(anbi['alias'],  betaling['beschrijving']):
+            elif valid_alias(anbi['alias']) and anbi['alias'] in betaling['beschrijving']:
                 found.append({'naam': betaling['verzender'], 'bedrag': betaling['euros']})
-            elif valid_alias(anbi['alias']) and string_found(anbi['alias'], betaling['verzender']):
+            elif valid_alias(anbi['alias']) and anbi['alias'] in betaling['verzender']:
                 found.append({'naam': betaling['verzender'], 'bedrag': betaling['euros']})
     return found
 
